@@ -1,20 +1,23 @@
-package pl.jdomanski.tictactoe;
+package pl.jdomanski.tictactoe.player;
 
+import pl.jdomanski.tictactoe.Move;
+import pl.jdomanski.tictactoe.board.GameBoard;
 
 public abstract class Player {
 
 	// == fields ==
-	private String name;
-	private String mark;
+	protected String name;
+	protected void name() {
+		
+	} String mark;
 	
 	// == constructor ==
 	public Player(String name, String mark) {
 		this.name = name;
 		this.mark = mark;
 	}
-
 	
-	abstract int move(Board board);
+	public abstract Move doMove(GameBoard board);
 
 	public String getName() {
 		return name;
