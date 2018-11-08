@@ -1,6 +1,7 @@
 package pl.jdomanski.tictactoe;
 
 import pl.jdomanski.tictactoe.board.TicTacToeBoard;
+import pl.jdomanski.tictactoe.board.Connect4Board;
 import pl.jdomanski.tictactoe.board.GameBoard;
 import pl.jdomanski.tictactoe.player.HumanPlayer;
 import pl.jdomanski.tictactoe.player.Player;
@@ -27,10 +28,10 @@ public class Game {
 	
 	// ==  public methods ==
 	public void start() {
-		System.out.println(board);
+		//System.out.println(board);
 		
 		while (true) {
-			
+			System.out.println(board);
 			System.out.println("Kolej gracza " + currentPlayer.getName());
 			Move move = currentPlayer.doMove(board);
 			
@@ -38,9 +39,10 @@ public class Game {
 			if (board.isValidMove(move)) {
 				board.submitMove(move, currentPlayer.getMark());
 			}
-			System.out.println(board);
+			//System.out.println(board);
 	
 			if (board.isGameEnded()) {
+				System.out.println("GAME OVER!");
 				if (board.isGameWon()) {
 					System.out.println("Player " + currentPlayer.getName() + " won!");
 				} else if (board.isGameTied()) {
@@ -65,8 +67,8 @@ public class Game {
 						 "", "X", "0",
 						 "",  "", "X"};
 		
-		Game game = new Game(  new HumanPlayer("j", "X"), new UnBeatableComputer("R2D2","O"),new TicTacToeBoard());
-		
+		Game game = new Game(  new HumanPlayer("j", "X"), new UnBeatableComputer("R2D2","O"),new Connect4Board());
+		//Game game = new Game(  new HumanPlayer("j", "X"), new RandomComputerPlayer("R2D2","O"),new Connect4Board());
 		game.start();
 	}
 }

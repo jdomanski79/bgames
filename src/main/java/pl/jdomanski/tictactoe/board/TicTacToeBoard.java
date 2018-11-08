@@ -185,16 +185,9 @@ public class TicTacToeBoard extends GameBoard {
 		return false;
 	}
 	
-	// == enums ==
-	
-//	public enum mark{
-//		X("X"), O("0"), EMPTY(" ");
-//	}
-	
 	// == main method ==
 	
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		TicTacToeBoard board = new TicTacToeBoard();
 		String mark = "X";
 		board.submitMove(new Move(3), mark);

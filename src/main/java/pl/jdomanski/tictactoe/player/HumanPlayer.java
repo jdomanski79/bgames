@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import pl.jdomanski.tictactoe.Move;
 import pl.jdomanski.tictactoe.board.TicTacToeBoard;
+import pl.jdomanski.tictactoe.board.Connect4Board;
 import pl.jdomanski.tictactoe.board.GameBoard;
 
 public class HumanPlayer extends Player {
@@ -19,12 +20,22 @@ public class HumanPlayer extends Player {
 
 	@Override
 	public Move doMove(GameBoard board) {
-		// TODO Auto-generated method stub
-		System.out.println("Podaj ruch (x,y): ");
 		
-		String[] in = input.nextLine().trim().split(",");
+		if (board instanceof TicTacToeBoard) {
+			System.out.println("Podaj ruch (x,y): ");
+				
+			String[] in = input.nextLine().trim().split(",");
 		
-		return new Move(Integer.valueOf(in[0]), Integer.valueOf(in[1]));
+			return new Move(Integer.valueOf(in[0]), Integer.valueOf(in[1]));
+		} else if (board instanceof Connect4Board) {
+			System.out.println("Podaj ruch (x): ");
+			
+			String in = input.nextLine().trim();
+		
+			return new Move(Integer.valueOf(in));
+		}
+		
+		return null;
 	}
 	
 	// main method

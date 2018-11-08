@@ -10,6 +10,11 @@ public abstract class GameBoard {
 	
 	protected boolean gameTied = false;
 	
+	// == constructor ==
+//	public GameBoard() {
+//		reset();
+//	}
+	
 	// == abstract methods ==
 	abstract public void reset();
 
@@ -22,6 +27,8 @@ public abstract class GameBoard {
 	abstract public ArrayList<Move> getAvailableMoves();
 
 	abstract public boolean isGameEnded();
+	
+	abstract public String toString();
 	
 	// == methods ==
 	public boolean isGameWon() {
