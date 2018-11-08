@@ -9,9 +9,9 @@ public class Connect4Board extends GameBoard {
 
 	// == fields ==
 	
-	private final int WIDTH = 4;
+	private final int WIDTH = 6;
 	
-	private final int HEIGHT = 4;
+	private final int HEIGHT = 8;
 	
 	private final String EMPTY = " ";
 	
