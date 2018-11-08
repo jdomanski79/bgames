@@ -1,5 +1,8 @@
 package pl.jdomanski.tictactoe.player;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 import pl.jdomanski.tictactoe.Move;
 import pl.jdomanski.tictactoe.board.GameBoard;
 
@@ -7,7 +10,8 @@ public class UnBeatableComputer extends Player {
 
 	// == fields ==
 	
-	String oponnent;
+	private String oponnent;
+	private int maxDepth = 6;
 	
 	// == constructor ==
 	public UnBeatableComputer(String name, String mark) {
@@ -21,37 +25,47 @@ public class UnBeatableComputer extends Player {
 		return bestMove(board);
 	}
 	
+	public void setMaxDepth(int depth) {
+		this.maxDepth = depth;
+	}
 	// == private methdos ==
 	
 	private Move bestMove(GameBoard board) {
 		Move bestMove = null;
-		int bestMoveValue = Integer.MIN_VALUE;
+		ArrayList<Move> bestMoves = new ArrayList<Move>();
+ 		int bestMoveValue = Integer.MIN_VALUE;
 		
 		for (Move move : board.getAvailableMoves() ) {
 			
 			board.submitMove(move, mark);
-			System.out.println("testing move START" + move);
-			System.out.println(board);
+			//System.out.println("testing move START" + move);
+			//System.out.println(board);
 			int moveValue = minmax( board,0, false);
 			System.out.println("Main move " + move + " value: " + moveValue);
-			System.out.println(board);
-			System.out.println("------------------------------------");
+			//System.out.println(board);
+			//System.out.println("------------------------------------");
 			board.undo(move);
 			
 			if (moveValue > bestMoveValue) {
-				bestMove = move;
+				bestMoves.clear();
+				bestMoves.add(move);
 				bestMoveValue = moveValue;
+			} else if (moveValue == bestMoveValue) {
+				bestMoves.add(move);
 			}
 		}
 		//System.out.println("board after minmax: ");
 		//System.out.println(board);
+		Random rnd = new Random();
+		bestMove = bestMoves.get(rnd.nextInt(bestMoves.size()));
+		
 		return bestMove;
 	}
 	
 	private int minmax(GameBoard board, int depth, boolean isMaximazingPlayer) {
 		//System.out.println("minmax board");
 		//System.out.println(board);
-		if (depth > 1) {
+		if (depth > maxDepth) {
 			//System.out.println("to deep..");
 			return 0;
 		}
@@ -72,21 +86,21 @@ public class UnBeatableComputer extends Player {
 			bestVal = Integer.MIN_VALUE;
 			for (Move move: board.getAvailableMoves()) {
 				board.submitMove(move, mark);
-				System.out.println(result + "submit " + move + " " + depth);
+				//System.out.println(result + "submit " + move + " " + depth);
 				int val = minmax(board, depth + 1, false);
 				bestVal = Math.max(val, bestVal);
 				
 //				if (depth == 1) {
 //					System.out.println("       move max " + move + bestVal);
 //				}
-				System.out.println(result + "undo   " + move + " " + depth);
+				//System.out.println(result + "undo   " + move + " " + depth);
 				board.undo(move);
 			}
 		} else {
 			bestVal = Integer.MAX_VALUE;
 			for (Move move: board.getAvailableMoves()) {
 				board.submitMove(move, oponnent);
-				System.out.println(result + "submit " + move + " " + depth);
+				//System.out.println(result + "submit " + move + " " + depth);
 
 				int val = minmax(board, depth + 1, true);
 				bestVal = Math.min(val, bestVal);
@@ -94,7 +108,7 @@ public class UnBeatableComputer extends Player {
 //				if (depth == 1) {
 //					System.out.println("       move min" + move + bestVal);
 //				}
-				System.out.println(result + "undo   " + move + " " + depth);
+				//System.out.println(result + "undo   " + move + " " + depth);
 
 				board.undo(move);
 			}
