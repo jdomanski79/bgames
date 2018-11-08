@@ -37,8 +37,8 @@ public class Connect4Board extends GameBoard {
 
 	@Override
 	public boolean isValidMove(Move move) {
-		return move.getX() >= 0 || 
-			   move.getX() < WIDTH || 
+		return move.getX() >= 0 && 
+			   move.getX() < WIDTH && 
 			   columnNotFull( move.getX() ); 
 				
 	}
