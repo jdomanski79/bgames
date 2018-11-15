@@ -6,16 +6,19 @@ import java.util.Random;
 import pl.jdomanski.bgames.Move;
 import pl.jdomanski.bgames.board.GameBoard;
 
-public class UnBeatableComputer extends Player {
+public class UnBeatableComputer implements Player {
 
 	// == fields ==
 	
 	private String oponnent;
 	private int maxDepth = 6;
+	private String name;
+	private String mark;
 	
 	// == constructor ==
 	public UnBeatableComputer(String name, String mark) {
-		super(name, mark);
+		this.name = name;
+		this.mark = mark;
 		oponnent = (mark.equals("X")) ? "O" : "X";
 	}
 
@@ -116,6 +119,22 @@ public class UnBeatableComputer extends Player {
 		}
 		//System.out.println("-----");
 		return bestVal;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getMark() {
+		return mark;
+	}
+
+	public void setMark(String mark) {
+		this.mark = mark;
 	}
 	
 	// == main method ==

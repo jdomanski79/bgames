@@ -19,6 +19,10 @@ public class Move {
 	}
 	
 	// == public methods ==
+	public Move plus(Move move) {
+		return new Move(move.getX() + this.x, move.getY() + this.y);
+	}
+	
 	public Integer getX() {
 		return x;
 	}
