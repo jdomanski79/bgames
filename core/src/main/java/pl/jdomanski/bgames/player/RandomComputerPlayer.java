@@ -7,20 +7,39 @@ import pl.jdomanski.bgames.Move;
 import pl.jdomanski.bgames.board.GameBoard;
 import pl.jdomanski.bgames.board.TicTacToeBoard;
 
-public class RandomComputerPlayer extends Player {
-
+public class RandomComputerPlayer implements Player {
+	
+	// == fields ==
+	private String name;
+	private String mark;
+	
 	public RandomComputerPlayer(String name, String mark) {
-		super(name, mark);
-		// TODO Auto-generated constructor stub
+		this.name = name;
+		this.mark = mark;
 	}
 
 	@Override
 	public Move doMove(GameBoard board) {
-		// TODO Auto-generated method stub
 		ArrayList<Move> moves = board.getAvailableMoves();
 		Random random = new Random();
 				
 		return moves.get(random.nextInt(moves.size()));
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getMark() {
+		return mark;
+	}
+
+	public void setMark(String mark) {
+		this.mark = mark;
 	}
 
 	public static void main(String[] args) {

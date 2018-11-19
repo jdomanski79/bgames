@@ -14,6 +14,7 @@ public class Game {
 	Player player1;
 	Player player2;
 	Player currentPlayer;
+	Player otherPlayer;
 	
 	GameBoard board;
 	
@@ -24,6 +25,7 @@ public class Game {
 		this.player1 = player1;
 		this.player2 = player2;
 		this.currentPlayer = player1;
+		this.otherPlayer = player2;
 	}
 	
 	// ==  public methods ==
@@ -58,6 +60,7 @@ public class Game {
 	// == private methods ==
 	private void changeCurrentPlayer() {
 		currentPlayer = (currentPlayer.equals(player1)) ? player2 : player1;
+		otherPlayer = (currentPlayer.equals(player1)) ? player2 : player1;
 	}
 	
 	// == main method ==
