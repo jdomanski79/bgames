@@ -9,7 +9,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 class ShipsBoardTest {
 
-    private ShipsBoard board;
+    static ShipsBoard board;
 
     @BeforeAll
     static void init(){
