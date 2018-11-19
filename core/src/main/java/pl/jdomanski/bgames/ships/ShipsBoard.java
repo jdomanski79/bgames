@@ -1,7 +1,6 @@
 package pl.jdomanski.bgames.ships;
 
 import java.util.ArrayList;
-import java.util.logging.Logger;
 
 import pl.jdomanski.bgames.Directions;
 import pl.jdomanski.bgames.Move;
@@ -32,7 +31,7 @@ public class ShipsBoard extends GameBoard {
 	@Override
 	public boolean isValidMove(Move move) {
 		return isInBoard(move) &&
-				!this.getCell(move).isHitted();
+			   !this.getCell(move).isHitted();
 	}
 
 	
@@ -89,20 +88,22 @@ public class ShipsBoard extends GameBoard {
 		int startY = start.getY();
 		int startX = start.getX();
 		Move nextMove;
-				
-		for (int i = 0; i < size; i++) {
-			if (horizontal) {
-				nextMove = new Move(startX + i, startY);
-			}
-			else {
-				nextMove = new Move(startX, startY + i);
-			}
-			
-			//System.out.println(isAvailableSpaceAround(nextMove));
-			if ( !isAvailableSpaceAround(nextMove)) return false;
+
+		for (int i = 0; i < size; i++){
+		    if (horizontal) {
+                nextMove = new Move(startX + i, startY);
+            }
+            else {
+                nextMove = new Move(startX, startY + i);
+            }
+
+            if (!isInBoard(nextMove) && !isValidPlaceForShipPart(nextMove)){
+                return false;
+            }
 		}
-		
+
 		return true;
+		
 	}
 	
 	public void placeShip() {
@@ -110,8 +111,9 @@ public class ShipsBoard extends GameBoard {
 	}
 	
 	// == private methods ==
-	private boolean isAvailableSpaceAround(Move move) {
+	private boolean isValidPlaceForShipPart(Move move) {
 		if (!isInBoard(move)) return false;
+		
 		for (Directions direction : Directions.values()) {
 			Move neighbour = move.plus(direction.getMove());
 			
@@ -137,13 +139,5 @@ public class ShipsBoard extends GameBoard {
 				move.getY() >= 0 && move.getY() < HEIGHT;
 	}	
 	// == main method ==
-	
-	public static void main(String[] args) {
-		ShipsBoard board = new ShipsBoard();
-		System.out.println(board.isThereAvailablePlaceForShip(new Move(9,5), 2, false));
-		board.submitMove(new Move(5,5), "");
-		//System.out.println(board);
 
-	}
-	
 }
