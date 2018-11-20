@@ -8,8 +8,8 @@ public enum Directions {
 	S (new Move( 0,-1)),
 	SW(new Move(-1,-1)),
 	W (new Move(-1, 0)),
-	NW(new Move(-1, 1)),
-	;
+	NW(new Move(-1, 1));
+
 	
 	private Move move;
 	
