@@ -12,7 +12,7 @@ public class ShipsBoard extends GameBoard {
 	private int HEIGHT = 10;
 	
 	private Cell[] grid = new Cell[WIDTH * HEIGHT];
-	
+
 	public ShipsBoard() {
 		reset();
 	}
@@ -84,26 +84,18 @@ public class ShipsBoard extends GameBoard {
 		return result;
 	}
 	
-	public boolean isThereAvailablePlaceForShip(Move start, int size, boolean horizontal) {
-		int startY = start.getY();
-		int startX = start.getX();
-		Move nextMove;
+	public int numberOfPlacesForShip(Move start, Directions direction) {
+		Move nextMove = start;
+		Move moveInDirection = direction.getMove();
 
-		for (int i = 0; i < size; i++){
-		    if (horizontal) {
-                nextMove = new Move(startX + i, startY);
-            }
-            else {
-                nextMove = new Move(startX, startY + i);
-            }
+		int count = 0;
 
-            if (!isInBoard(nextMove) && !isValidPlaceForShipPart(nextMove)){
-                return false;
-            }
-		}
+		while (isInBoard(nextMove) && isValidPlaceForShipPart(nextMove)) {
+		    nextMove = nextMove.plus(moveInDirection);
+		    count++;
+        }
 
-		return true;
-		
+        return count;
 	}
 	
 	public void placeShip(Move start, int size, boolean horizontal) {
@@ -112,7 +104,7 @@ public class ShipsBoard extends GameBoard {
 	
 	// == private methods ==
 	private boolean isValidPlaceForShipPart(Move move) {
-		if (!isInBoard(move)) return false;
+		if (!isInBoard(move) || !getCell(move).isEmpty()) return false;
 		
 		for (Directions direction : Directions.values()) {
 			Move neighbour = move.plus(direction.getMove());
