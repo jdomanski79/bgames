@@ -23,7 +23,7 @@ class ShipsBoardTest {
 
         assertThat(board.isThereAvailablePlaceForShip(move, size, horizontal), is(true));
     }
-    @Test
+    @Testst
     void isThereAvailablePlaceForShip_shouldFail() {
         Move move = new Move(9,9);
         int size = 2;
@@ -32,4 +32,13 @@ class ShipsBoardTest {
         assertThat(board.isThereAvailablePlaceForShip(move, size, horizontal), is(false));
     }
 
+    @Test
+    void placeShip(){
+        Move start = new Move(0,0);
+        int size = 3;
+        boolean horizontal = true;
+
+        board.placeShip(start, size, horizontal);
+//        assertThat("Is ship.", board.get);
+    }
 }
