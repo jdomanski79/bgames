@@ -106,7 +106,7 @@ public class ShipsBoard extends GameBoard {
 		
 	}
 	
-	public void placeShip() {
+	public void placeShip(Move start, int size, boolean horizontal) {
 		
 	}
 	
