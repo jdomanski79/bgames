@@ -2,10 +2,7 @@ package pl.jdomanski.bgames;
 
 import pl.jdomanski.bgames.board.Connect4Board;
 import pl.jdomanski.bgames.board.GameBoard;
-import pl.jdomanski.bgames.board.TicTacToeBoard;
-import pl.jdomanski.bgames.player.HumanPlayer;
 import pl.jdomanski.bgames.player.Player;
-import pl.jdomanski.bgames.player.RandomComputerPlayer;
 import pl.jdomanski.bgames.player.UnBeatableComputer;
 
 public class Game {
@@ -35,11 +32,11 @@ public class Game {
 		while (true) {
 			System.out.println(board);
 			System.out.println("Kolej gracza " + currentPlayer.getName());
-			Move move = currentPlayer.doMove(board);
+			Vector vector = currentPlayer.doMove(board);
 			
-			System.out.println("gracz wybral ruch " + move);
-			if (board.isValidMove(move)) {
-				board.submitMove(move, currentPlayer.getMark());
+			System.out.println("gracz wybral ruch " + vector);
+			if (board.isValidMove(vector)) {
+				board.submitMove(vector, currentPlayer.getMark());
 			}
 			//System.out.println(board);
 	

@@ -1,11 +1,11 @@
 package pl.jdomanski.bgames.player;
 
-import pl.jdomanski.bgames.Move;
+import pl.jdomanski.bgames.Vector;
 import pl.jdomanski.bgames.board.GameBoard;
 
 public interface Player {
 
-	public Move doMove(GameBoard board);
+	public Vector doMove(GameBoard board);
 
 	public String getName();
 

@@ -1,26 +1,26 @@
 package pl.jdomanski.bgames;
 
-public class Move {
+public class Vector {
 
 	// == fields ==
 	private Integer x;
 	private Integer y;
 	
 	// == constructors ==
-	public Move (int x) {
+	public Vector(int x) {
 		this.x = x;
 	}
 	
 	
 
-	public Move( int x, int y) {
+	public Vector(int x, int y) {
 		this.x = x;
 		this.y = y;
 	}
 	
 	// == public methods ==
-	public Move plus(Move move) {
-		return new Move(move.getX() + this.x, move.getY() + this.y);
+	public Vector plus(Vector vector) {
+		return new Vector(vector.getX() + this.x, vector.getY() + this.y);
 	}
 	
 	public Integer getX() {
@@ -33,7 +33,7 @@ public class Move {
 
 	@Override
 	public String toString() {
-		return "Move [x=" + x + ", y=" + y + "]";
+		return "Vector [x=" + x + ", y=" + y + "]";
 	}
 
 }

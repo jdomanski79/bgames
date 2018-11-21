@@ -2,7 +2,7 @@ package pl.jdomanski.bgames.ships;
 
 import java.util.ArrayList;
 
-import pl.jdomanski.bgames.Move;
+import pl.jdomanski.bgames.Vector;
 import pl.jdomanski.bgames.board.GameBoard;
 import pl.jdomanski.bgames.player.Player;
 
@@ -21,7 +21,7 @@ public class ShipPlayer implements Player {
 
 	// == public methods ==
 	@Override
-	public Move doMove(GameBoard board) {
+	public Vector doMove(GameBoard board) {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -2,7 +2,7 @@ package pl.jdomanski.bgames.board;
 
 import java.util.ArrayList;
 
-import pl.jdomanski.bgames.Move;
+import pl.jdomanski.bgames.Vector;
 
 
 public class TicTacToeBoard extends GameBoard {
@@ -41,19 +41,19 @@ public class TicTacToeBoard extends GameBoard {
 	/* (non-Javadoc)
 	 * @see pl.jdomanski.tictactoe.GameBoard#isValidMove(int)
 	 */
-	public boolean isValidMove(Move move) {
-		if (move.getY() == null) {
-			if (move.getX() < 0 || move.getX() > WIDTH * HEIGHT) 
+	public boolean isValidMove(Vector vector) {
+		if (vector.getY() == null) {
+			if (vector.getX() < 0 || vector.getX() > WIDTH * HEIGHT)
 				return false;
 		}
 		
-		if (move.getY() != null) { 
-			if (move.getY() < 0 || move.getY() >= HEIGHT ||
-				move.getX() < 0 || move.getX() >= WIDTH)
+		if (vector.getY() != null) {
+			if (vector.getY() < 0 || vector.getY() >= HEIGHT ||
+				vector.getX() < 0 || vector.getX() >= WIDTH)
 				return false;
 		}
 		
-		if (!getCell(move).equals("")) {
+		if (!getCell(vector).equals("")) {
 			return false;
 		} 
 		
@@ -63,12 +63,12 @@ public class TicTacToeBoard extends GameBoard {
 	/* (non-Javadoc)
 	 * @see pl.jdomanski.tictactoe.GameBoard#submitMove(int, java.lang.String)
 	 */
-	public void submitMove (Move move, String mark) {
-		setCell(move, mark);
+	public void submitMove (Vector vector, String mark) {
+		setCell(vector, mark);
 	}
 	
-	public void undo(Move move) {
-		setCell(move, "");
+	public void undo(Vector vector) {
+		setCell(vector, "");
 		gameWon = false;
 		gameTied = false;
 		
@@ -78,11 +78,11 @@ public class TicTacToeBoard extends GameBoard {
 	/* (non-Javadoc)
 	 * @see pl.jdomanski.tictactoe.GameBoard#getAvailableMoves()
 	 */
-	public ArrayList<Move> getAvailableMoves(){
-		ArrayList<Move> list = new ArrayList();
+	public ArrayList<Vector> getAvailableMoves(){
+		ArrayList<Vector> list = new ArrayList();
 		for (int i = 0; i < maxSize; i++) {
 			if (grid[i].equals("")) {
-				list.add(new Move(i));
+				list.add(new Vector(i));
 			}
 		}
 		
@@ -134,11 +134,11 @@ public class TicTacToeBoard extends GameBoard {
 	}
 	
 	// == private methods ==
-	private String getCell(Move move) {
-		int value = move.getX();
+	private String getCell(Vector vector) {
+		int value = vector.getX();
 		
-		if (move.getY() != null) {
-			value = value + move.getY() * WIDTH; 
+		if (vector.getY() != null) {
+			value = value + vector.getY() * WIDTH;
 		}
 		
 		return grid[value];
@@ -149,11 +149,11 @@ public class TicTacToeBoard extends GameBoard {
 	}
 	
 	
-	private void setCell(Move move, String mark) {
-		int value = move.getX();
+	private void setCell(Vector vector, String mark) {
+		int value = vector.getX();
 		
-		if (move.getY() != null) {
-			value = value + move.getY() * WIDTH;
+		if (vector.getY() != null) {
+			value = value + vector.getY() * WIDTH;
 		}
 		
 		grid[value] = mark;
@@ -190,9 +190,9 @@ public class TicTacToeBoard extends GameBoard {
 	public static void main(String[] args) {
 		TicTacToeBoard board = new TicTacToeBoard();
 		String mark = "X";
-		board.submitMove(new Move(3), mark);
-		board.submitMove(new Move(4), mark);
-		board.submitMove(new Move(5), mark);
+		board.submitMove(new Vector(3), mark);
+		board.submitMove(new Vector(4), mark);
+		board.submitMove(new Vector(5), mark);
 		
 		System.out.println(board);
 		System.out.println("Game won: " + board.checkGameWon());

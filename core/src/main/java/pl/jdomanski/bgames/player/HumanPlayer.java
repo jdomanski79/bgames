@@ -2,7 +2,7 @@ package pl.jdomanski.bgames.player;
 
 import java.util.Scanner;
 
-import pl.jdomanski.bgames.Move;
+import pl.jdomanski.bgames.Vector;
 import pl.jdomanski.bgames.board.Connect4Board;
 import pl.jdomanski.bgames.board.GameBoard;
 import pl.jdomanski.bgames.board.TicTacToeBoard;
@@ -23,14 +23,14 @@ public class HumanPlayer implements Player {
 	}
 
 	@Override
-	public Move doMove(GameBoard board) {
+	public Vector doMove(GameBoard board) {
 		
 		if (board instanceof TicTacToeBoard) {
 			System.out.println("Podaj ruch (x,y): ");
 				
 			String[] in = input.nextLine().trim().split(",");
 		
-			return new Move(Integer.valueOf(in[0]), Integer.valueOf(in[1]));
+			return new Vector(Integer.valueOf(in[0]), Integer.valueOf(in[1]));
 		} 
 		else if (board instanceof Connect4Board) {
 			
@@ -38,7 +38,7 @@ public class HumanPlayer implements Player {
 			
 			String in = input.nextLine().trim();
 		
-			return new Move(Integer.valueOf(in));
+			return new Vector(Integer.valueOf(in));
 		}
 		
 		return null;
