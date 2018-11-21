@@ -84,22 +84,16 @@ public class ShipsBoard extends GameBoard {
 		return result;
 	}
 	
-	public boolean isThereAvailablePlaceForShip(Move start, int size, boolean horizontal) {
-		int startY = start.getY();
-		int startX = start.getX();
-		Move nextMove;
+	public boolean isThereAvailablePlaceForShip(Move start, int size, Directions direction) {
+		Move nextMove = start;
 
 		for (int i = 0; i < size; i++){
-		    if (horizontal) {
-                nextMove = new Move(startX + i, startY);
-            }
-            else {
-                nextMove = new Move(startX, startY + i);
-            }
 
-            if (!isInBoard(nextMove) && !isValidPlaceForShipPart(nextMove)){
+            if (!(isInBoard(nextMove) || isValidPlaceForShipPart(nextMove))) {
                 return false;
             }
+
+			nextMove = nextMove.plus(direction.getMove());
 		}
 
 		return true;
