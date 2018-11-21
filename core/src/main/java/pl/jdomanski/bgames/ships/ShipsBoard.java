@@ -87,7 +87,6 @@ public class ShipsBoard extends GameBoard {
 	public int numberOfPlacesForShip(Move start, Directions direction) {
 		Move nextMove = start;
 		Move moveInDirection = direction.getMove();
-
 		int count = 0;
 
 		while (isInBoard(nextMove) && isValidPlaceForShipPart(nextMove)) {
