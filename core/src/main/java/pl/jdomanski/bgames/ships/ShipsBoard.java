@@ -12,7 +12,7 @@ public class ShipsBoard extends GameBoard {
 	private int HEIGHT = 10;
 	
 	private Cell[] grid = new Cell[WIDTH * HEIGHT];
-	
+
 	public ShipsBoard() {
 		reset();
 	}
@@ -84,20 +84,17 @@ public class ShipsBoard extends GameBoard {
 		return result;
 	}
 	
-	public boolean isThereAvailablePlaceForShip(Vector start, int size, Directions direction) {
-		Vector nextVector = start;
+	public int numberOfPlacesForShip(Move start, Directions direction) {
+		Move nextMove = start;
+		Move moveInDirection = direction.getMove();
+		int count = 0;
 
-		for (int i = 0; i < size; i++){
+		while (isInBoard(nextMove) && isValidPlaceForShipPart(nextMove)) {
+		    nextMove = nextMove.plus(moveInDirection);
+		    count++;
+        }
 
-            if (!(isInBoard(nextVector) || isValidPlaceForShipPart(nextVector))) {
-                return false;
-            }
-
-			nextVector = nextVector.plus(direction.getVector());
-		}
-
-		return true;
-		
+        return count;
 	}
 	
 	public void placeShip(Vector start, int size, Directions direction) {
@@ -113,7 +110,7 @@ public class ShipsBoard extends GameBoard {
 	// == private methods ==
 	private boolean isValidPlaceForShipPart(Vector vector) {
 		if (!isInBoard(vector)) return false;
-		
+	
 		for (Directions direction : Directions.values()) {
 			Vector neighbour = vector.plus(direction.getVector());
 			
@@ -138,6 +135,5 @@ public class ShipsBoard extends GameBoard {
 		return vector.getX() >= 0 && vector.getX() < WIDTH &&
 				vector.getY() >= 0 && vector.getY() < HEIGHT;
 	}	
-	// == main method ==
 
 }
