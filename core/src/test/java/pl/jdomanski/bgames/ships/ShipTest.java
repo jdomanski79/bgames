@@ -13,9 +13,11 @@ class ShipTest {
         Cell part1 = new Cell();
         Cell part2 = new Cell();
         Cell part3 = new Cell();
+
         part1.setShip(ship);
         part2.setShip(ship);
         part3.setShip(ship);
+
         ship.addShipPart(part1);
         ship.addShipPart(part2);
         ship.addShipPart(part3);

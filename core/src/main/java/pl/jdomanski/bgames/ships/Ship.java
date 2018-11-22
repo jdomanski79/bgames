@@ -30,7 +30,7 @@ public class Ship {
 
 	public void hit() {
 
-		boolean allPartsHit = parts.stream().allMatch(cell -> cell.isHit() == true);
+		boolean allPartsHit = parts.stream().allMatch(cell -> cell.isHit() );
 
 		sunk = allPartsHit;
 	}
