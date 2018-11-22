@@ -2,14 +2,9 @@ package pl.jdomanski.bgames.ships;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Disabled;
-<<<<<<< HEAD
-=======
 import org.junit.jupiter.api.Test;
 import pl.jdomanski.bgames.Directions;
-import pl.jdomanski.bgames.Move;
->>>>>>> origin/laptop
 
-import static org.hamcrest.MatcherAssert.assertThat;
 
 @Disabled
 class ShipsBoardTest {
@@ -20,7 +15,6 @@ class ShipsBoardTest {
     static void init(){
         board = new ShipsBoard();
     }
-<<<<<<< HEAD
     /*
     @Test
     void isThereAvailablePlaceForShip_shouldSuccess() {
@@ -49,8 +43,5 @@ class ShipsBoardTest {
 //        assertThat("Is ship.", board.get);
     }
 // */
-}
-=======
 
 }
->>>>>>> origin/laptop

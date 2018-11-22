@@ -1,24 +1,20 @@
 package pl.jdomanski.bgames.ships;
 
-import java.util.ArrayList;
-import java.util.Map;
+import java.util.*;
 
 import pl.jdomanski.bgames.Vector;
 
 public class Ship {
 
 	// == fields ==
-	private Map<Vector, Cell> parts;
+	private Set<Cell> parts;
 	private boolean sunk;
 	private ShipTypes type;
 	
 	// == constructor ==
-	public Ship(ArrayList<Vector> vectors, ShipTypes type ) {
-		
-		for (Vector vector : vectors) {
-			Cell cell = new Cell(this);
-			parts.put(vector, cell);
-		}
+	public Ship( ShipTypes type ) {
+
+	    this.parts = new HashSet<>();
 		this.type = type;
 		this.sunk = false;
 	}
@@ -27,14 +23,15 @@ public class Ship {
 	public boolean isSunk() {
 		return this.sunk;
 	}
+
+	public void addShipPart(Cell part){
+		parts.add(part);
+	}
+
 	public void hit() {
-		
-		for (Vector vector : parts.keySet()) {
-			if (parts.get(vector).isMissed()) {
-				sunk = false;
-				break;
-			}
-		}
-		sunk = true;
+
+		boolean allPartsHit = parts.stream().allMatch(cell -> cell.isHit() == true);
+
+		sunk = allPartsHit;
 	}
 }

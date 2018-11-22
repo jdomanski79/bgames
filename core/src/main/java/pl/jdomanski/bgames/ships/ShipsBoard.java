@@ -31,14 +31,14 @@ public class ShipsBoard extends GameBoard {
 	@Override
 	public boolean isValidMove(Vector vector) {
 		return isInBoard(vector) &&
-			   !this.getCell(vector).isHitted();
+			   !this.getCell(vector).isHit();
 	}
 
 	
 
 	@Override
 	public void submitMove(Vector vector, String mark) {
-		this.getCell(vector).setHitted(true);
+		this.getCell(vector).hit();
 		
 	}
 
@@ -56,7 +56,7 @@ public class ShipsBoard extends GameBoard {
 		for (int y = 0; y < HEIGHT; y++) {
 			for (int x = 0; x < WIDTH; x++) {
 				Vector vector = new Vector(x,y);
-				if (!getCell(vector).isHitted()) {
+				if (!getCell(vector).isHit()) {
 					list.add(vector);
 				}
 			}
@@ -84,9 +84,9 @@ public class ShipsBoard extends GameBoard {
 		return result;
 	}
 	
-	public int numberOfPlacesForShip(Move start, Directions direction) {
-		Move nextMove = start;
-		Move moveInDirection = direction.getMove();
+	public int numberOfPlacesForShip(Vector start, Directions direction) {
+		Vector nextMove = start;
+		Vector moveInDirection = direction.getVector();
 		int count = 0;
 
 		while (isInBoard(nextMove) && isValidPlaceForShipPart(nextMove)) {
@@ -99,12 +99,7 @@ public class ShipsBoard extends GameBoard {
 	
 	public void placeShip(Vector start, int size, Directions direction) {
 
-		Vector currentVector = start;
 
-		for (int i = 0; i < size; i++){
-			getCell(currentVector).setShip(ship);
-
-		}
 	}
 	
 	// == private methods ==
