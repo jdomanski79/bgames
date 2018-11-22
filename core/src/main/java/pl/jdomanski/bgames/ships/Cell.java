@@ -3,36 +3,27 @@ package pl.jdomanski.bgames.ships;
 public class Cell {
 	
 	// == fields ==
-	private boolean empty = true;
-	private boolean hitted = false;
-	private Ship ship = null;
+	private boolean hit;
+	private Ship ship;
 	
 	// == constructors ==
 	public Cell() {
-		
+
+	    this.ship = null;
+	    this.hit = false;
 	}
 	
-	public Cell(Ship ship) {
-		this.empty = false;
-		this.ship = ship;
-	}
-	
-	// == public methods ==
-	
+
 	public boolean isEmpty() {
-		return this.empty;
+		return this.ship == null;
 	}
 	
-	public boolean isShip() {
-		return !this.empty;
+	public boolean isHit() {
+		return hit;
 	}
 
-	public boolean isHitted() {
-		return hitted;
-	}
-
-	public void setHitted(boolean hited) {
-		this.hitted = hited;
+	public void hit() {
+		this.hit = true;
 		
 		if (ship != null) {
 			ship.hit();
@@ -40,30 +31,21 @@ public class Cell {
 	}
 	
 	public boolean isMissed() {
-		return !this.hitted;
-	}
-
-	public Ship getShip() {
-		return ship;
+		return !this.hit;
 	}
 
 	public void setShip(Ship ship) {
-		this.empty = false;
 		this.ship = ship;
 	}
 
-	public void setEmpty(boolean empty) {
-		this.empty = empty;
-	}
-	
 	public String toString() {
-		if (empty) {
-			if (hitted) {
+		if (ship == null) {
+			if (hit) {
 				return "*";
 			} else return " ";
 		}
 		else {
-			if (hitted) {
+			if (hit) {
 				return "X";
 			} else return "S";
 		}
