@@ -1,30 +1,33 @@
 package pl.jdomanski.bgames.ships;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Scanner;
+import java.util.Set;
 
+import pl.jdomanski.bgames.Directions;
 import pl.jdomanski.bgames.Vector;
 import pl.jdomanski.bgames.board.GameBoard;
 import pl.jdomanski.bgames.player.Player;
 
-public class ShipPlayer implements Player {
+public class ShipPlayer {
 
-	// == fields == 
+
+	// == fields ==
 	private String name;
-	private String mark;
-	private ArrayList<Ship> fleet;
+	private final ShipsBoard board;
+	private Set<Ship> fleet = new HashSet<>();
 
 	private Scanner input = new Scanner(System.in);
 	
 	// == constructor ==
-	public ShipPlayer(String name, String mark) {
+	public ShipPlayer(String name, ShipsBoard board) {
+		this.board = board;
 		this.name = name;
-		this.mark = mark;
 	}
 
 	// == public methods ==
-	@Override
-	public Vector doMove(GameBoard board) {
+	public Vector doMove() {
 		System.out.println("Podaj ruch:");
 
 		String[] in = input.nextLine().trim().toLowerCase().split("");
@@ -36,41 +39,37 @@ public class ShipPlayer implements Player {
 		return new Vector(x, y);
 	}
 
-	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
+		return name;
 	}
 
-	@Override
-	public void setName(String name) {
-		// TODO Auto-generated method stub
+	public void placeShipsManualy(){
+		System.out.println("Podaj pozycje statków:");
+		for (ShipTypes type: ShipTypes.values()){
+			System.out.println("Podaj pozycję statku " + type.getName() + ".");
+			System.out.println("Długość statku to: " + type.getSize());
 
-	}
-	
-	@Override
-	public String getMark() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+			String in = input.nextLine().trim().toLowerCase();
 
-	@Override
-	public void setMark(String mark) {
-		// TODO Auto-generated method stub
+			int y  = in.substring(0,1).charAt(0) - 'a';
+			int x = Integer.valueOf(in.substring(1)) - 1;
 
+			Vector shipFirstPart = new Vector(x,y);
+			Set<Cell> cells = new HashSet<>();
+
+			cells = board.getCellsForShip(shipFirstPart, type, Directions.N);
+
+			Ship ship = new Ship(type, cells);
+			fleet.add(ship);
+			System.out.println(board);
+
+		}
 	}
-	
 	public void addShip(Ship ship) {
 		fleet.add(ship);
 	}
 	
 	public boolean isLost() {
-		for (Ship ship: fleet) {
-			if (!ship.isSunk()) {
-				return false;
-			}
-		}
-		
-		return true;
+	    return fleet.stream().allMatch(ship -> ship.isSunk());
 	}
 }

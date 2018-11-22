@@ -36,10 +36,13 @@ public class ShipsBoard extends GameBoard {
 			   !this.getCell(vector).isHit();
 	}
 
-	
-
 	@Override
 	public void submitMove(Vector vector, String mark) {
+
+	}
+
+
+	public void submitMove(Vector vector ) {
 		this.getCell(vector).hit();
 		
 	}

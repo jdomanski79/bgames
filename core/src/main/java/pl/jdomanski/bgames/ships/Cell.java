@@ -45,7 +45,9 @@ public class Cell {
 			} else return " ";
 		}
 		else {
-			if (hit) {
+			if (ship.isSunk()) {
+				return "#";
+			} else if (hit) {
 				return "X";
 			} else return "S";
 		}

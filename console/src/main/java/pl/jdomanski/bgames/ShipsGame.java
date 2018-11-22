@@ -7,11 +7,12 @@ public class ShipsGame {
 
     public static void main(String[] args) {
         ShipsBoard board = new ShipsBoard();
-        ShipPlayer player = new ShipPlayer("J", "");
+        ShipPlayer player = new ShipPlayer("J",board);
+        player.placeShipsManualy();
 
         while (true){
             System.out.println(board);
-            board.submitMove(player.doMove(board),"");
+            board.submitMove(player.doMove());
         }
 
 
