@@ -1,6 +1,10 @@
 package pl.jdomanski.bgames.ships;
 
 import org.junit.jupiter.api.Test;
+
+import java.util.HashSet;
+import java.util.Set;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 
@@ -8,19 +12,18 @@ class ShipTest {
 
     @Test
     void isSunk() {
-        Ship ship = new Ship(ShipTypes.BATTLESHIP);
 
         Cell part1 = new Cell();
         Cell part2 = new Cell();
         Cell part3 = new Cell();
 
-        part1.setShip(ship);
-        part2.setShip(ship);
-        part3.setShip(ship);
 
-        ship.addShipPart(part1);
-        ship.addShipPart(part2);
-        ship.addShipPart(part3);
+        Set<Cell> parts = new HashSet<>();
+        parts.add(part1);
+        parts.add(part2);
+        parts.add(part3);
+
+        Ship ship = new Ship(ShipTypes.BATTLESHIP, parts);
 
         assertThat(ship.isSunk()).as("The ship is new!", ship.isSunk()).isFalse();
 

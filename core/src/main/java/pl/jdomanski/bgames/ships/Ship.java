@@ -12,11 +12,13 @@ public class Ship {
 	private ShipTypes type;
 	
 	// == constructor ==
-	public Ship( ShipTypes type ) {
+	public Ship( ShipTypes type, Set<Cell> parts) {
 
-	    this.parts = new HashSet<>();
+	    this.parts = parts;
 		this.type = type;
 		this.sunk = false;
+
+		parts.forEach(cell -> cell.setShip(this));
 	}
 	
 	// == public methods ==
@@ -24,14 +26,9 @@ public class Ship {
 		return this.sunk;
 	}
 
-	public void addShipPart(Cell part){
-		parts.add(part);
-	}
-
 	public void hit() {
 
-		boolean allPartsHit = parts.stream().allMatch(cell -> cell.isHit() );
+		sunk = parts.stream().allMatch(cell -> cell.isHit() );
 
-		sunk = allPartsHit;
 	}
 }
