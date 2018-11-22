@@ -1,6 +1,8 @@
 package pl.jdomanski.bgames.ships;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import pl.jdomanski.bgames.Directions;
 import pl.jdomanski.bgames.Vector;
@@ -72,15 +74,16 @@ public class ShipsBoard extends GameBoard {
 
 	@Override
 	public String toString() {
-		String result = "";
-		for (int y = HEIGHT - 1; y >= 0; y--) {
-			
+		String result = "    1   2   3   4   5   6   7   8   9   10 \n";
+		for (int y = 0; y < HEIGHT; y++) {
+			result += Character.toString((char) (y + 97)).toUpperCase() + " ";
 			for (int x = 0; x < WIDTH; x++) {
 				result += "| " + getCell(new Vector(x,y)) + " ";
 			}
 			
-			result += "\n";
+			result += "|\n";
 		}
+		result +="\n\n\n";
 		return result;
 	}
 	
@@ -97,9 +100,17 @@ public class ShipsBoard extends GameBoard {
         return count;
 	}
 	
-	public void placeShip(Vector start, int size, Directions direction) {
+	public Set<Cell> getCellsForShip(Vector start, ShipTypes type, Directions direction) {
+		Set<Cell> parts = new HashSet<>();
 
+		Vector nextVector = start;
 
+		for (int i = 0; i < type.getSize(); i++){
+			parts.add(getCell(nextVector));
+			nextVector = nextVector.plus(direction.getVector());
+		}
+
+		return parts;
 	}
 	
 	// == private methods ==

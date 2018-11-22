@@ -1,6 +1,7 @@
 package pl.jdomanski.bgames.ships;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import pl.jdomanski.bgames.Vector;
 import pl.jdomanski.bgames.board.GameBoard;
@@ -12,6 +13,8 @@ public class ShipPlayer implements Player {
 	private String name;
 	private String mark;
 	private ArrayList<Ship> fleet;
+
+	private Scanner input = new Scanner(System.in);
 	
 	// == constructor ==
 	public ShipPlayer(String name, String mark) {
@@ -22,8 +25,15 @@ public class ShipPlayer implements Player {
 	// == public methods ==
 	@Override
 	public Vector doMove(GameBoard board) {
-		// TODO Auto-generated method stub
-		return null;
+		System.out.println("Podaj ruch:");
+
+		String[] in = input.nextLine().trim().toLowerCase().split("");
+		// TODO validation of input
+
+		int y = in[0].charAt(0) - 97;
+		int x = Integer.valueOf(in[1]) - 1;
+
+		return new Vector(x, y);
 	}
 
 	@Override
