@@ -1,33 +1,25 @@
 package pl.jdomanski.bgames.ships;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
 
 import pl.jdomanski.bgames.Directions;
 import pl.jdomanski.bgames.Vector;
-import pl.jdomanski.bgames.board.GameBoard;
-import pl.jdomanski.bgames.player.Player;
 
-public class ShipPlayer {
+public class HumanBattleShipPlayer extends BattleShipPlayer {
 
-
-	// == fields ==
-	private String name;
-	private final ShipsBoard board;
-	private Set<Ship> fleet = new HashSet<>();
 
 	private Scanner input = new Scanner(System.in);
 	
 	// == constructor ==
-	public ShipPlayer(String name, ShipsBoard board) {
-		this.board = board;
-		this.name = name;
+	public HumanBattleShipPlayer(String name, ShipsBoard ownBoard, ShipsBoard enemyBoard) {
+		super(name, ownBoard, enemyBoard);
 	}
 
 	// == public methods ==
-	public Vector doMove() {
+	@Override
+	public void shoot() {
 		System.out.println("Podaj ruch:");
 
 		String[] in = input.nextLine().trim().toLowerCase().split("");
@@ -36,13 +28,10 @@ public class ShipPlayer {
 		int y = in[0].charAt(0) - 97;
 		int x = Integer.valueOf(in[1]) - 1;
 
-		return new Vector(x, y);
+		enemyBoard.submitMove(new Vector(x,y));
 	}
 
-	public String getName() {
-		return name;
-	}
-
+	@Override
 	public void placeShipsManualy(){
 		System.out.println("Podaj pozycje statków:");
 		for (ShipTypes type: ShipTypes.values()){
@@ -57,19 +46,16 @@ public class ShipPlayer {
 			Vector shipFirstPart = new Vector(x,y);
 			Set<Cell> cells = new HashSet<>();
 
-			cells = board.getCellsForShip(shipFirstPart, type, Directions.N);
+			cells = ownBoard.getCellsForShip(shipFirstPart, type, Directions.N);
 
 			Ship ship = new Ship(type, cells);
 			fleet.add(ship);
-			System.out.println(board);
+			System.out.println(ownBoard);
 
 		}
 	}
 	public void addShip(Ship ship) {
 		fleet.add(ship);
 	}
-	
-	public boolean isLost() {
-	    return fleet.stream().allMatch(ship -> ship.isSunk());
-	}
+
 }
