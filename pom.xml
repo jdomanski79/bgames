@@ -12,7 +12,13 @@
   	<version>2.1.0.RELEASE</version>
   	<relativePath/>
   </parent>
-  
+ <dependencies>
+     <dependency>
+         <groupId>ch.qos.logback</groupId>
+         <artifactId>logback-classic</artifactId>
+         <version>1.2.3</version>
+     </dependency>
+ </dependencies>
   <modules>
     <module>core</module>
     <module>web</module>
