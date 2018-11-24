@@ -12,6 +12,7 @@ public class ShipsBoard extends GameBoard {
 	// == fields ==
 	private int WIDTH = 10;
 	private int HEIGHT = 10;
+	private Message message;
 	
 	private Cell[] grid = new Cell[WIDTH * HEIGHT];
 
@@ -43,8 +44,15 @@ public class ShipsBoard extends GameBoard {
 
 
 	public void submitMove(Vector vector ) {
-		this.getCell(vector).hit();
+		Cell cell = getCell(vector);
+
+		cell.hit();
+		message = cell.getMessage();
 		
+	}
+
+	public Message getMessage(){
+		return message;
 	}
 
 	@Override
@@ -118,7 +126,7 @@ public class ShipsBoard extends GameBoard {
 	
 	// == private methods ==
 	private boolean isValidPlaceForShipPart(Vector vector) {
-		if (!isInBoard(vector)) return false;
+		if (isOutsideBoard(vector)) return false;
 	
 		for (Directions direction : Directions.values()) {
 			Vector neighbour = vector.plus(direction.getVector());
@@ -139,7 +147,11 @@ public class ShipsBoard extends GameBoard {
 	private boolean gameWon() {
 		return false;
 	}
-	
+
+	private boolean isOutsideBoard(Vector vector){
+		return !isInBoard(vector);
+	}
+
 	private boolean isInBoard(Vector vector) {
 		return vector.getX() >= 0 && vector.getX() < WIDTH &&
 				vector.getY() >= 0 && vector.getY() < HEIGHT;

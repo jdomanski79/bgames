@@ -5,12 +5,16 @@ public class Cell {
 	// == fields ==
 	private boolean hit;
 	private Ship ship;
-	
+
+
+
+	private Message message;
 	// == constructors ==
 	public Cell() {
 
 	    this.ship = null;
 	    this.hit = false;
+
 	}
 	
 
@@ -28,8 +32,30 @@ public class Cell {
 		if (ship != null) {
 			ship.hit();
 		}
+
+		setMessage();
 	}
-	
+
+	public Message getMessage() {
+		return message;
+	}
+
+	private void setMessage() {
+		System.out.println("the ship is " + ship);
+		System.out.println(ship == null);
+		if (ship == null) {
+			message = Message.MISSED;
+			System.out.println("message is " + message.getBody());
+			return;
+		}
+		if (ship != null && ship.isSunk())
+			message = Message.SUNK;
+		else
+			message = Message.HIT;
+
+		System.out.println("message is " + message.getBody());
+	}
+
 	public boolean isMissed() {
 		return !this.hit;
 	}

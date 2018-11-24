@@ -55,8 +55,6 @@ public class HumanBattleShipPlayer extends BattleShipPlayer {
 
 		}
 	}
-	public void addShip(Ship ship) {
-		fleet.add(ship);
-	}
+
 
 }

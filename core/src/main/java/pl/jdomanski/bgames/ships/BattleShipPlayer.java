@@ -61,4 +61,8 @@ public abstract class BattleShipPlayer {
 
        // System.out.println(ownBoard);
     }
+
+    public Message answer(){
+		return ownBoard.getMessage();
+	}
 }
