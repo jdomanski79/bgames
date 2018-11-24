@@ -40,12 +40,9 @@ public abstract class BattleShipPlayer {
         int BOARD_WIDTH = 10;
         int BOARD_HEIGHT = 10;
         Vector firstPart = null;
-        boolean placeFound = false;
-        Set<Cell> cells = new HashSet<>();
 
         for (ShipTypes type: ShipTypes.values()){
-            cells.clear();
-            placeFound  = false;
+            boolean placeFound  = false;
 
             while (!placeFound) {
                 randomDirection = (random.nextBoolean()) ? Directions.N : Directions.E;
@@ -56,7 +53,7 @@ public abstract class BattleShipPlayer {
                 }
             }
 
-            cells = ownBoard.getCellsForShip(firstPart,type,randomDirection);
+            Set<Cell> cells = ownBoard.getCellsForShip(firstPart,type,randomDirection);
 
             Ship ship = new Ship(type, cells);
             fleet.add(ship);
