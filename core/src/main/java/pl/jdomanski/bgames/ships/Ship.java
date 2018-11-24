@@ -25,7 +25,6 @@ public class Ship {
 
 		this.parts.forEach(cell -> {
 			cell.setShip(this);
-			log.info("Cell for ship {}", cell.hashCode());
 		});
 	}
 	
@@ -35,11 +34,6 @@ public class Ship {
 	}
 
 	public void hit() {
-		log.info("hit ship -> {}", this);
-		log.info("parts {}", parts);
-		sunk = parts.stream().allMatch(cell -> {
-			log.info("Cell hash {} hit? {}", cell.hashCode(), cell.isHit());
-			return cell.isHit();
-		} );
+		sunk = parts.stream().allMatch(cell -> cell.isHit());
 	}
 }
