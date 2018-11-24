@@ -46,6 +46,7 @@ public class HumanBattleShipPlayer extends BattleShipPlayer {
 			Vector shipFirstPart = new Vector(x,y);
 			Set<Cell> cells = new HashSet<>();
 
+			//TODO zaimplementuj wybór kierunku
 			cells = ownBoard.getCellsForShip(shipFirstPart, type, Directions.N);
 
 			Ship ship = new Ship(type, cells);
