@@ -1,18 +1,26 @@
 package pl.jdomanski.bgames;
 
-import pl.jdomanski.bgames.ships.ShipPlayer;
+import pl.jdomanski.bgames.ships.BattleShipPlayer;
+import pl.jdomanski.bgames.ships.HumanBattleShipPlayer;
 import pl.jdomanski.bgames.ships.ShipsBoard;
 
 public class ShipsGame {
 
     public static void main(String[] args) {
-        ShipsBoard board = new ShipsBoard();
-        ShipPlayer player = new ShipPlayer("J",board);
-        player.placeShipsManualy();
+        ShipsBoard ownBoard = new ShipsBoard();
+        ShipsBoard enemyBoard = new ShipsBoard();
 
-        while (true){
-            System.out.println(board);
-            board.submitMove(player.doMove());
+        BattleShipPlayer player = new HumanBattleShipPlayer("J",ownBoard, enemyBoard);
+        BattleShipPlayer enemyPlayer = new HumanBattleShipPlayer("Comp", enemyBoard, ownBoard);
+
+        player.placeShipsRandomly();
+        enemyPlayer.placeShipsRandomly();
+        //player.placeShipsManualy();
+
+        while (!player.isLost()){
+            System.out.println(enemyBoard);
+            player.shoot();
+            System.out.println(enemyPlayer.answer().getBody());
         }
 
 
