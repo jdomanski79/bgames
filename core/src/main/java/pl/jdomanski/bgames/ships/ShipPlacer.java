@@ -3,5 +3,5 @@ package pl.jdomanski.bgames.ships;
 import java.util.Set;
 
 public interface ShipPlacer {
-    Set<Ship> createAndPlaceFleet();
+    Set<Ship> createAndPlaceFleetAt(Grid grid);
 }

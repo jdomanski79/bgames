@@ -9,15 +9,16 @@ import java.util.Set;
 
 public class ShipPlacerImpl implements ShipPlacer{
     // == fields ==
-    private final Grid grid;
+    private Grid grid;
 
     // == constructor ==
-    public ShipPlacerImpl(Grid grid) {
-        this.grid = grid;
+    public ShipPlacerImpl() {
     }
 
     @Override
-    public Set<Ship> createAndPlaceFleet(){
+    public Set<Ship> createAndPlaceFleetAt(Grid grid){
+        this.grid = grid;
+
         Set<Ship> fleet = new HashSet<>();
         Random random = new Random();
         Directions randomDirection = Directions.N;
@@ -73,12 +74,12 @@ public class ShipPlacerImpl implements ShipPlacer{
 
 	// == private methods ==
 	private boolean isValidPlaceForShipPart(Vector vector) {
-		//if (isOutsideBoard(vector)) return false;
+		if (!grid.isInside(vector)) return false;
 
 		for (Directions direction : Directions.values()) {
 			Vector neighbour = vector.plus(direction.getVector());
-
-			if (grid.isInside(neighbour) && !grid.getCell(neighbour).isEmpty()) {
+			if (grid.isInside(neighbour)
+                    && !grid.getCell(neighbour).isEmpty()) {
 				return false;
 			}
 

@@ -21,6 +21,13 @@ class GridTest {
         assertThat(grid).isNotNull();
     }
     @Test
+    void getCell(){
+        Cell cell = grid.getCell(new Vector(0,0));
+
+        assertThat(cell).isNotNull();
+        assertThat(cell).isInstanceOf(Cell.class);
+    }
+    @Test
     void isInside_vector_Inside() {
         Vector vector = new Vector( 0, 0);
 
