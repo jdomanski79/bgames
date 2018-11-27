@@ -11,10 +11,10 @@ class ShipsBoardTest {
 
     static ShipsBoard board;
 
-    @BeforeAll
-    static void init(){
-        board = new ShipsBoard();
-    }
+//    @BeforeAll
+//    static void init(){
+//        board = new ShipsBoard();
+//    }
     /*
     @Test
     void isThereAvailablePlaceForShip_shouldSuccess() {

@@ -28,7 +28,7 @@ public class HumanBattleShipPlayer extends BattleShipPlayer {
 		int y = in[0].charAt(0) - 97;
 		int x = Integer.valueOf(in[1]) - 1;
 
-		enemyBoard.submitMove(new Vector(x,y));
+		//enemyBoard.submitMove(new Vector(x,y));
 	}
 
 	@Override
@@ -47,7 +47,7 @@ public class HumanBattleShipPlayer extends BattleShipPlayer {
 			Set<Cell> cells = new HashSet<>();
 
 			//TODO zaimplementuj wybór kierunku
-			cells = ownBoard.getCellsForShip(shipFirstPart, type, Directions.N);
+			//cells = ownBoard.getCellsForShip(shipFirstPart, type, Directions.N);
 
 			Ship ship = new Ship(type, cells);
 			fleet.add(ship);

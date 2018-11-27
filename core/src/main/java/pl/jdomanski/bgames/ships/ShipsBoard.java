@@ -1,87 +1,55 @@
 package pl.jdomanski.bgames.ships;
 
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
-import pl.jdomanski.bgames.Directions;
 import pl.jdomanski.bgames.Vector;
-import pl.jdomanski.bgames.board.GameBoard;
 
-public class ShipsBoard extends GameBoard {
+public class ShipsBoard {
 	// == fields ==
 	private int WIDTH = 10;
 	private int HEIGHT = 10;
 	private Message message;
-	
-	private Cell[] grid = new Cell[WIDTH * HEIGHT];
+    private Grid grid;
 
-	public ShipsBoard() {
-		reset();
+	public ShipsBoard(Grid grid) {
+	    this.grid = grid;
 	}
 	
-	@Override
-	public void reset() {
-		gameTied = false;
-		gameWon = false;
-		
-		for (int i = 0; i < WIDTH * HEIGHT; i++) {
-			grid[i] = new Cell();
-		}
-		
+	public boolean isValidShot(Vector vector) {
+		return grid.isInside(vector) &&
+			   !grid.getCell(vector).isHit();
 	}
 
-	@Override
-	public boolean isValidMove(Vector vector) {
-		return isInBoard(vector) &&
-			   !this.getCell(vector).isHit();
-	}
-
-	@Override
-	public void submitMove(Vector vector, String mark) {
-
-	}
-
-
-	public void submitMove(Vector vector ) {
-		Cell cell = getCell(vector);
-
+	public void saveShot(Vector shot ) {
+		Cell cell = grid.getCell(shot);
 		cell.hit();
 		message = cell.getMessage();
-		
 	}
 
 	public Message getMessage(){
 		return message;
 	}
 
-	@Override
-	public void undo(Vector vector) {
-		// TODO Auto-generated method stub
-		
+	public ArrayList<Vector> getAvailableShots() {
+		ArrayList<Vector> availableShots = new ArrayList<>();
+		for (Vector vector: allVectorsInGrid()) {
+            if (!grid.getCell(vector).isHit()) {
+                availableShots.add(vector);
+            }
+        }
+		return availableShots;
 	}
 
-	@Override
-	public ArrayList<Vector> getAvailableMoves() {
-		
-		ArrayList<Vector> list = new ArrayList<Vector>();
-		
-		for (int y = 0; y < HEIGHT; y++) {
-			for (int x = 0; x < WIDTH; x++) {
-				Vector vector = new Vector(x,y);
-				if (!getCell(vector).isHit()) {
-					list.add(vector);
-				}
-			}
-		}
-		return list;
-	}
-
-	@Override
-	public boolean isGameEnded() {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    private List<Vector> allVectorsInGrid(){
+	    List<Vector> vectors = new ArrayList<>();
+    	for (int y = 0; y < HEIGHT; y++){
+            for(int x=0;x<WIDTH; x++){
+               vectors.add(new Vector (x,y));
+            }
+        }
+        return vectors;
+    }
 
 	@Override
 	public String toString() {
@@ -89,7 +57,7 @@ public class ShipsBoard extends GameBoard {
 		for (int y = 0; y < HEIGHT; y++) {
 			result += Character.toString((char) (y + 97)).toUpperCase() + " ";
 			for (int x = 0; x < WIDTH; x++) {
-				result += "| " + getCell(new Vector(x,y)) + " ";
+				result += "| " + grid.getCell(new Vector(x,y)) + " ";
 			}
 			
 			result += "|\n";
@@ -97,64 +65,5 @@ public class ShipsBoard extends GameBoard {
 		result +="\n\n\n";
 		return result;
 	}
-	
-	public int numberOfPlacesForShip(Vector start, Directions direction) {
-		Vector nextMove = start;
-		Vector moveInDirection = direction.getVector();
-		int count = 0;
-
-		while (isInBoard(nextMove) && isValidPlaceForShipPart(nextMove)) {
-		    nextMove = nextMove.plus(moveInDirection);
-		    count++;
-        }
-
-        return count;
-	}
-	
-	public Set<Cell> getCellsForShip(Vector start, ShipTypes type, Directions direction) {
-		Set<Cell> parts = new HashSet<>();
-
-		Vector nextVector = start;
-
-		for (int i = 0; i < type.getSize(); i++){
-			parts.add(getCell(nextVector));
-			nextVector = nextVector.plus(direction.getVector());
-		}
-
-		return parts;
-	}
-	
-	// == private methods ==
-	private boolean isValidPlaceForShipPart(Vector vector) {
-		if (isOutsideBoard(vector)) return false;
-	
-		for (Directions direction : Directions.values()) {
-			Vector neighbour = vector.plus(direction.getVector());
-			
-			if (isInBoard(neighbour) && !getCell(neighbour).isEmpty()) {
-				return false;
-			}
-			
-		}
-		return true;
-	}
-
-	
-	private Cell getCell (Vector vector) {
-		return grid[vector.getX() + vector.getY() * WIDTH];
-	}
-	
-	private boolean gameWon() {
-		return false;
-	}
-
-	private boolean isOutsideBoard(Vector vector){
-		return !isInBoard(vector);
-	}
-
-	private boolean isInBoard(Vector vector) {
-		return vector.getX() >= 0 && vector.getX() < WIDTH &&
-				vector.getY() >= 0 && vector.getY() < HEIGHT;
-	}	
 
 }
