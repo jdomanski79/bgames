@@ -19,7 +19,7 @@ public class Ship {
 			Cell cell = new Cell(this);
 			parts.put(vector, cell);
 		}
-		this.type = type;
+		this.setType(type);
 		this.sunk = false;
 	}
 	
@@ -36,5 +36,13 @@ public class Ship {
 			}
 		}
 		sunk = true;
+	}
+
+	public ShipTypes getType() {
+		return type;
+	}
+
+	public void setType(ShipTypes type) {
+		this.type = type;
 	}
 }
