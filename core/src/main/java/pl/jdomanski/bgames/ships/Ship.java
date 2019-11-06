@@ -30,7 +30,7 @@ public class Ship {
 	public void hit() {
 		
 		for (Vector vector : parts.keySet()) {
-			if (parts.get(vector).isMissed()) {
+			if (parts.get(vector).isNotHitted()) {
 				sunk = false;
 				break;
 			}

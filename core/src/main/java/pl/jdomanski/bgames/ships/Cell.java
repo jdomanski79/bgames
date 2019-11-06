@@ -3,7 +3,6 @@ package pl.jdomanski.bgames.ships;
 public class Cell {
 	
 	// == fields ==
-	private boolean empty = true;
 	private boolean hitted = false;
 	private Ship ship = null;
 	
@@ -13,18 +12,17 @@ public class Cell {
 	}
 	
 	public Cell(Ship ship) {
-		this.empty = false;
 		this.ship = ship;
 	}
 	
 	// == public methods ==
 	
 	public boolean isEmpty() {
-		return this.empty;
+		return this.ship == null;
 	}
 	
 	public boolean isShip() {
-		return !this.empty;
+		return !this.isEmpty();
 	}
 
 	public boolean isHitted() {
@@ -34,12 +32,12 @@ public class Cell {
 	public void setHitted(boolean hited) {
 		this.hitted = hited;
 		
-		if (ship != null) {
+		if (this.isShip()) {
 			ship.hit();
 		}
 	}
 	
-	public boolean isMissed() {
+	public boolean isNotHitted() {
 		return !this.hitted;
 	}
 
@@ -48,16 +46,12 @@ public class Cell {
 	}
 
 	public void setShip(Ship ship) {
-		this.empty = false;
 		this.ship = ship;
 	}
 
-	public void setEmpty(boolean empty) {
-		this.empty = empty;
-	}
 	
 	public String toString() {
-		if (empty) {
+		if (isEmpty()) {
 			if (hitted) {
 				return "*";
 			} else return " ";

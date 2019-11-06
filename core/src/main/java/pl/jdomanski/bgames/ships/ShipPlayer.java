@@ -14,6 +14,11 @@ public class ShipPlayer implements Player {
 	private ArrayList<Ship> fleet;
 	
 	// == constructor ==
+	public ShipPlayer() {
+		this.name = "RandomPlayer";
+		this.mark = "S";
+	}
+	
 	public ShipPlayer(String name, String mark) {
 		this.name = name;
 		this.mark = mark;
