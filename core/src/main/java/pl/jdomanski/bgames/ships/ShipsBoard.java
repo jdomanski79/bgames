@@ -84,10 +84,10 @@ public class ShipsBoard extends GameBoard {
 		return result;
 	}
 	
-	public boolean isThereAvailablePlaceForShip(Vector start, int size, Directions direction) {
+	public boolean isThereAvailablePlaceForShip(Vector start, ShipTypes shipType, Directions direction) {
 		Vector nextVector = start;
 
-		for (int i = 0; i < size; i++){
+		for (int i = 0; i < shipType.getSize(); i++){
 
             if (!(isInBoard(nextVector) || isValidPlaceForShipPart(nextVector))) {
                 return false;
@@ -144,6 +144,12 @@ public class ShipsBoard extends GameBoard {
 	// == main method ==
 	public static void main(String[] args) {
 		ShipsBoard board = new ShipsBoard();
-		System.out.println(board.toString()); 
+		System.out.println(board.toString());
+		
+		Ship ship = new Ship(vectors, type)
+		
+		
+		
+		
 	}
 }
