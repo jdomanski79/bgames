@@ -1,6 +1,7 @@
 package pl.jdomanski.bgames.ships;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 import pl.jdomanski.bgames.Vector;
@@ -8,11 +9,15 @@ import pl.jdomanski.bgames.Vector;
 public class Ship {
 
 	// == fields ==
-	private Map<Vector, Cell> parts;
+	private Map<Vector, Cell> parts = new HashMap<>();
 	private boolean sunk;
 	private ShipTypes type;
 	
 	// == constructor ==
+	public Ship(ShipTypes type) {
+		this.type = type;
+	}
+	
 	public Ship(ArrayList<Vector> vectors, ShipTypes type ) {
 		
 		for (Vector vector : vectors) {
@@ -27,6 +32,7 @@ public class Ship {
 	public boolean isSunk() {
 		return this.sunk;
 	}
+	
 	public void hit() {
 		
 		for (Vector vector : parts.keySet()) {
@@ -44,5 +50,9 @@ public class Ship {
 
 	public void setType(ShipTypes type) {
 		this.type = type;
+	}
+
+	public Map<Vector, Cell> getParts() {
+		return parts;
 	}
 }

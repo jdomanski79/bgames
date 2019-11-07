@@ -19,7 +19,12 @@ public class Vector {
 	}
 	
 	// == public methods ==
-	public Vector plus(Vector vector) {
+	public void plus(Vector vector) {
+		this.x = vector.getX() + this.x;
+		this.y = vector.getY() + this.y;
+	}
+	
+	public Vector add (Vector vector) {
 		return new Vector(vector.getX() + this.x, vector.getY() + this.y);
 	}
 	

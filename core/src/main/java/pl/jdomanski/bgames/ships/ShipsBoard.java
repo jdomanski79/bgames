@@ -1,6 +1,7 @@
 package pl.jdomanski.bgames.ships;
 
 import java.util.ArrayList;
+import java.util.concurrent.SubmissionPublisher;
 
 import pl.jdomanski.bgames.Directions;
 import pl.jdomanski.bgames.Vector;
@@ -10,52 +11,49 @@ public class ShipsBoard extends GameBoard {
 	// == fields ==
 	private int WIDTH = 10;
 	private int HEIGHT = 10;
-	
+
 	private Cell[] grid = new Cell[WIDTH * HEIGHT];
-	
+
 	public ShipsBoard() {
 		reset();
 	}
-	
+
 	@Override
 	public void reset() {
 		gameTied = false;
 		gameWon = false;
-		
+
 		for (int i = 0; i < WIDTH * HEIGHT; i++) {
 			grid[i] = new Cell();
 		}
-		
+
 	}
 
 	@Override
 	public boolean isValidMove(Vector vector) {
-		return isInBoard(vector) &&
-			   this.getCell(vector).isNotHitted();
+		return isInBoard(vector) && this.getCell(vector).isNotHitted();
 	}
-
-	
 
 	@Override
 	public void submitMove(Vector vector, String mark) {
 		this.getCell(vector).setHitted(true);
-		
+
 	}
 
 	@Override
 	public void undo(Vector vector) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public ArrayList<Vector> getAvailableMoves() {
-		
+
 		ArrayList<Vector> list = new ArrayList<Vector>();
-		
+
 		for (int y = 0; y < HEIGHT; y++) {
 			for (int x = 0; x < WIDTH; x++) {
-				Vector vector = new Vector(x,y);
+				Vector vector = new Vector(x, y);
 				if (getCell(vector).isNotHitted()) {
 					list.add(vector);
 				}
@@ -74,82 +72,90 @@ public class ShipsBoard extends GameBoard {
 	public String toString() {
 		String result = "";
 		for (int y = HEIGHT - 1; y >= 0; y--) {
-			
+
 			for (int x = 0; x < WIDTH; x++) {
-				result += "| " + getCell(new Vector(x,y)) + " ";
+				result += "| " + getCell(new Vector(x, y)) + " ";
 			}
-			
+
 			result += "\n";
 		}
 		return result;
 	}
-	
+
 	public boolean isThereAvailablePlaceForShip(Vector start, ShipTypes shipType, Directions direction) {
 		Vector nextVector = start;
 
-		for (int i = 0; i < shipType.getSize(); i++){
+		for (int i = 0; i < shipType.getSize(); i++) {
 
-            if (!(isInBoard(nextVector) || isValidPlaceForShipPart(nextVector))) {
-                return false;
-            }
+			if (!(isInBoard(nextVector) || isValidPlaceForShipPart(nextVector))) {
+				return false;
+			}
 
-			nextVector = nextVector.plus(direction.getVector());
+			nextVector.plus(direction.getVector());
 		}
 
 		return true;
-		
+
 	}
-	
-	public void placeShip(Vector start, Ship ship, Directions direction) {
+
+	public void placeShip(Ship ship, Vector start, Directions direction) {
 
 		Vector currentVector = start;
-		ArrayList<Vector> parts = new ArrayList<>();
 
-		for (int i = 0; i < ship.getType().getSize(); i++){
-			parts.add(currentVector);
+		for (int i = 0; i < ship.getType().getSize(); i++) {
+			System.out.println("Adding new part of ship..");
+			System.out.println(currentVector);
+
+			getCell(currentVector).setShip(ship);
+			ship.getParts().put(currentVector, getCell(currentVector));
 			currentVector.plus(direction.getVector());
-			//	getCell(currentVector).setShip(ship);
 
 		}
+
 	}
-	
+
 	// == private methods ==
 	private boolean isValidPlaceForShipPart(Vector vector) {
-		if (!isInBoard(vector)) return false;
-		
+		if (!isInBoard(vector))
+			return false;
+
 		for (Directions direction : Directions.values()) {
-			Vector neighbour = vector.plus(direction.getVector());
-			
+			Vector neighbour = vector.add(direction.getVector());
+
 			if (isInBoard(neighbour) && !getCell(neighbour).isEmpty()) {
 				return false;
 			}
-			
+
 		}
 		return true;
 	}
 
-	
-	private Cell getCell (Vector vector) {
+	private Cell getCell(Vector vector) {
 		return grid[vector.getX() + vector.getY() * WIDTH];
 	}
-	
+
 	private boolean gameWon() {
 		return false;
 	}
-	
+
 	private boolean isInBoard(Vector vector) {
-		return vector.getX() >= 0 && vector.getX() < WIDTH &&
-				vector.getY() >= 0 && vector.getY() < HEIGHT;
-	}	
+		return vector.getX() >= 0 && vector.getX() < WIDTH && vector.getY() >= 0 && vector.getY() < HEIGHT;
+	}
+
 	// == main method ==
 	public static void main(String[] args) {
 		ShipsBoard board = new ShipsBoard();
 		System.out.println(board.toString());
-		
-		Ship ship = new Ship(vectors, type)
-		
-		
-		
-		
+
+		Ship ship1 = new Ship(ShipTypes.BATTLESHIP);
+		Ship ship2 = new Ship(ShipTypes.CARRIER);
+
+		board.placeShip(ship1, new Vector(5, 5), Directions.N);
+		board.placeShip(ship2, new Vector(0, 0), Directions.E);
+		System.out.println(board.toString());
+
+		board.submitMove(new Vector(5, 5), "x");
+		board.submitMove(new Vector(1, 1), "");
+		System.out.println(board.toString());
 	}
 }
