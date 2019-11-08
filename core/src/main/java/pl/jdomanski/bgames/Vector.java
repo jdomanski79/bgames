@@ -24,6 +24,10 @@ public class Vector {
 		this.y = vector.getY() + this.y;
 	}
 	
+	public Vector copyOf() {
+		return new Vector(this.getX(), this.getY());
+	}
+	
 	public Vector add (Vector vector) {
 		return new Vector(vector.getX() + this.x, vector.getY() + this.y);
 	}
