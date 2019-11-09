@@ -12,17 +12,19 @@ public class ShipsBoard extends GameBoard {
 	// == fields ==
 	private int WIDTH = 10;
 	private int HEIGHT = 10;
-
 	private Cell[] grid = new Cell[WIDTH * HEIGHT];
-
+	private ArrayList<Ship> fleet;
+	
+	// == consturctors ==
 	public ShipsBoard() {
 		reset();
 	}
-
+	// == methods ==
 	@Override
 	public void reset() {
 		gameTied = false;
 		gameWon = false;
+		fleet = new ArrayList<>();
 
 		for (int i = 0; i < WIDTH * HEIGHT; i++) {
 			grid[i] = new Cell();
@@ -102,6 +104,7 @@ public class ShipsBoard extends GameBoard {
 						
 			Ship ship = new Ship(type);
 			placeShip(ship, randomVector, randomDirection);
+			fleet.add(ship);
 		}
 	}
 	
