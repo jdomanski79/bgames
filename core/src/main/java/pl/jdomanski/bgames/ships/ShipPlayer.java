@@ -11,7 +11,6 @@ public class ShipPlayer implements Player {
 	// == fields == 
 	private String name;
 	private String mark;
-	private ArrayList<Ship> fleet;
 	
 	// == constructor ==
 	public ShipPlayer() {
@@ -55,17 +54,7 @@ public class ShipPlayer implements Player {
 
 	}
 	
-	public void addShip(Ship ship) {
-		fleet.add(ship);
-	}
-	
 	public boolean isLost() {
-		for (Ship ship: fleet) {
-			if (!ship.isSunk()) {
-				return false;
-			}
-		}
-		
-		return true;
+		return false;
 	}
 }
