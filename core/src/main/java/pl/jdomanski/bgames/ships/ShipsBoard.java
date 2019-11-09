@@ -90,20 +90,16 @@ public class ShipsBoard extends GameBoard {
 			
 			Vector randomVector;
 			Directions randomDirection;
+			Directions[] mainDirections = {Directions.N, Directions.S, Directions.E, Directions.W};
 			
 			do {
 				int randomInt = random.nextInt(getAvailableMoves().size());
 				randomVector = getAvailableMoves().get(randomInt);
-			
-				Directions[] mainDirections = {Directions.N, Directions.S, Directions.E, Directions.W};
-				randomDirection = mainDirections[random.nextInt(mainDirections.length)];
-				
-				System.out.println("Checking rnd vector " + randomVector);
+							
+				randomDirection = mainDirections[random.nextInt(mainDirections.length)];	
 			} 
 			while (!isThereAvailablePlaceForShip(randomVector, type, randomDirection));
-			
-			System.out.println(randomVector+ " " +randomDirection + " " + type);
-			
+						
 			Ship ship = new Ship(type);
 			placeShip(ship, randomVector, randomDirection);
 		}
