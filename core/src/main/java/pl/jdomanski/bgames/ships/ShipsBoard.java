@@ -31,7 +31,11 @@ public class ShipsBoard extends GameBoard {
 		}
 
 	}
-
+	
+	public ArrayList<Ship> getFleet() {
+		return fleet;
+	}
+	
 	@Override
 	public boolean isValidMove(Vector vector) {
 		return isInBoard(vector) && this.getCell(vector).isNotHitted();
@@ -185,4 +189,5 @@ public class ShipsBoard extends GameBoard {
 		 * board.submitMove(new Vector(5, 5), "x"); board.submitMove(new Vector(1, 1),
 		 * ""); System.out.println(board.toString());
 		 */	}
+
 }
