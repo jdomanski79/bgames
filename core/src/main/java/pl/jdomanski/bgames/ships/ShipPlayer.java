@@ -2,18 +2,24 @@ package pl.jdomanski.bgames.ships;
 
 import java.util.ArrayList;
 
-import pl.jdomanski.bgames.Move;
+import pl.jdomanski.bgames.Vector;
 import pl.jdomanski.bgames.board.GameBoard;
 import pl.jdomanski.bgames.player.Player;
 
 public class ShipPlayer implements Player {
 
-	// == fields == 
+	// == fields ==
 	private String name;
 	private String mark;
-	private ArrayList<Ship> fleet;
-	
+	private ShipsBoard ownBoard;
+	private ShipsBoard enemyBoard;
+
 	// == constructor ==
+	public ShipPlayer() {
+		this.name = "RandomPlayer";
+		this.mark = "S";
+	}
+
 	public ShipPlayer(String name, String mark) {
 		this.name = name;
 		this.mark = mark;
@@ -21,7 +27,7 @@ public class ShipPlayer implements Player {
 
 	// == public methods ==
 	@Override
-	public Move doMove(GameBoard board) {
+	public Vector doMove(GameBoard board) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -37,7 +43,7 @@ public class ShipPlayer implements Player {
 		// TODO Auto-generated method stub
 
 	}
-	
+
 	@Override
 	public String getMark() {
 		// TODO Auto-generated method stub
@@ -49,18 +55,24 @@ public class ShipPlayer implements Player {
 		// TODO Auto-generated method stub
 
 	}
-	
-	public void addShip(Ship ship) {
-		fleet.add(ship);
-	}
-	
+
 	public boolean isLost() {
-		for (Ship ship: fleet) {
-			if (!ship.isSunk()) {
-				return false;
-			}
-		}
-		
-		return true;
+		return ownBoard.getFleet().stream().allMatch(ship -> ship.isSunk());
+	}
+
+	public ShipsBoard getOwnBoard() {
+		return ownBoard;
+	}
+
+	public void setOwnBoard(ShipsBoard ownBoard) {
+		this.ownBoard = ownBoard;
+	}
+
+	public ShipsBoard getEnemyBoard() {
+		return enemyBoard;
+	}
+
+	public void setEnemyBoard(ShipsBoard enemyBoard) {
+		this.enemyBoard = enemyBoard;
 	}
 }

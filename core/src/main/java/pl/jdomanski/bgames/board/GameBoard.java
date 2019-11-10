@@ -2,7 +2,7 @@ package pl.jdomanski.bgames.board;
 
 import java.util.ArrayList;
 
-import pl.jdomanski.bgames.Move;
+import pl.jdomanski.bgames.Vector;
 
 public abstract class GameBoard {
 	// == fields ==
@@ -18,13 +18,13 @@ public abstract class GameBoard {
 	// == abstract methods ==
 	abstract public void reset();
 
-	abstract public boolean isValidMove(Move move);
+	abstract public boolean isValidMove(Vector vector);
 
-	abstract public void submitMove(Move move, String mark);
+	abstract public void submitMove(Vector vector, String mark);
 	
-	abstract public void undo(Move move);
+	abstract public void undo(Vector vector);
 
-	abstract public ArrayList<Move> getAvailableMoves();
+	abstract public ArrayList<Vector> getAvailableMoves();
 
 	abstract public boolean isGameEnded();
 	

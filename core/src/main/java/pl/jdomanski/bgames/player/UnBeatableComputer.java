@@ -3,7 +3,7 @@ package pl.jdomanski.bgames.player;
 import java.util.ArrayList;
 import java.util.Random;
 
-import pl.jdomanski.bgames.Move;
+import pl.jdomanski.bgames.Vector;
 import pl.jdomanski.bgames.board.GameBoard;
 
 public class UnBeatableComputer implements Player {
@@ -23,7 +23,7 @@ public class UnBeatableComputer implements Player {
 	}
 
 	@Override
-	public Move doMove(GameBoard board) {
+	public Vector doMove(GameBoard board) {
 		// TODO Auto-generated method stub
 		return bestMove(board);
 	}
@@ -33,28 +33,28 @@ public class UnBeatableComputer implements Player {
 	}
 	// == private methdos ==
 	
-	private Move bestMove(GameBoard board) {
-		Move bestMove = null;
-		ArrayList<Move> bestMoves = new ArrayList<Move>();
+	private Vector bestMove(GameBoard board) {
+		Vector bestMove = null;
+		ArrayList<Vector> bestMoves = new ArrayList<Vector>();
  		int bestMoveValue = Integer.MIN_VALUE;
 		
-		for (Move move : board.getAvailableMoves() ) {
+		for (Vector vector : board.getAvailableMoves() ) {
 			
-			board.submitMove(move, mark);
-			//System.out.println("testing move START" + move);
+			board.submitMove(vector, mark);
+			//System.out.println("testing vector START" + vector);
 			//System.out.println(board);
 			int moveValue = minmax( board,0, false);
-			//System.out.println("Main move " + move + " value: " + moveValue);
+			//System.out.println("Main vector " + vector + " value: " + moveValue);
 			//System.out.println(board);
 			//System.out.println("------------------------------------");
-			board.undo(move);
+			board.undo(vector);
 			
 			if (moveValue > bestMoveValue) {
 				bestMoves.clear();
-				bestMoves.add(move);
+				bestMoves.add(vector);
 				bestMoveValue = moveValue;
 			} else if (moveValue == bestMoveValue) {
-				bestMoves.add(move);
+				bestMoves.add(vector);
 			}
 		}
 		//System.out.println("board after minmax: ");
@@ -87,33 +87,33 @@ public class UnBeatableComputer implements Player {
 		}
 		if (isMaximazingPlayer) {
 			bestVal = Integer.MIN_VALUE;
-			for (Move move: board.getAvailableMoves()) {
-				board.submitMove(move, mark);
-				//System.out.println(result + "submit " + move + " " + depth);
+			for (Vector vector : board.getAvailableMoves()) {
+				board.submitMove(vector, mark);
+				//System.out.println(result + "submit " + vector + " " + depth);
 				int val = minmax(board, depth + 1, false);
 				bestVal = Math.max(val, bestVal);
 				
 //				if (depth == 1) {
-//					System.out.println("       move max " + move + bestVal);
+//					System.out.println("       vector max " + vector + bestVal);
 //				}
-				//System.out.println(result + "undo   " + move + " " + depth);
-				board.undo(move);
+				//System.out.println(result + "undo   " + vector + " " + depth);
+				board.undo(vector);
 			}
 		} else {
 			bestVal = Integer.MAX_VALUE;
-			for (Move move: board.getAvailableMoves()) {
-				board.submitMove(move, oponnent);
-				//System.out.println(result + "submit " + move + " " + depth);
+			for (Vector vector : board.getAvailableMoves()) {
+				board.submitMove(vector, oponnent);
+				//System.out.println(result + "submit " + vector + " " + depth);
 
 				int val = minmax(board, depth + 1, true);
 				bestVal = Math.min(val, bestVal);
 				
 //				if (depth == 1) {
-//					System.out.println("       move min" + move + bestVal);
+//					System.out.println("       vector min" + vector + bestVal);
 //				}
-				//System.out.println(result + "undo   " + move + " " + depth);
+				//System.out.println(result + "undo   " + vector + " " + depth);
 
-				board.undo(move);
+				board.undo(vector);
 			}
 			
 		}

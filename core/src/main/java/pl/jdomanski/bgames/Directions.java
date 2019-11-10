@@ -1,23 +1,23 @@
 package pl.jdomanski.bgames;
 
 public enum Directions {
-	N (new Move( 0, 1)),
-	NE(new Move( 1, 1)),
-	E (new Move( 1, 0)),
-	SE(new Move( 1,-1)),
-	S (new Move( 0,-1)),
-	SW(new Move(-1,-1)),
-	W (new Move(-1, 0)),
-	NW(new Move(-1, 1));
-
+	N (new Vector( 0, 1)),
+	NE(new Vector( 1, 1)),
+	E (new Vector( 1, 0)),
+	SE(new Vector( 1,-1)),
+	S (new Vector( 0,-1)),
+	SW(new Vector(-1,-1)),
+	W (new Vector(-1, 0)),
+	NW(new Vector(-1, 1)),
+	;
 	
-	private Move move;
+	private Vector vector;
 	
-	Directions(Move move) {
-		this.move = move;
+	Directions(Vector vector) {
+		this.vector = vector;
 	}
 	
-	public Move getMove() {
-		return this.move;
+	public Vector getVector() {
+		return this.vector;
 	}
 }

@@ -1,43 +1,58 @@
 package pl.jdomanski.bgames.ships;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
-import pl.jdomanski.bgames.Move;
-import pl.jdomanski.bgames.board.GameBoard;
-import pl.jdomanski.bgames.player.Player;
+import pl.jdomanski.bgames.Vector;
 
 public class Ship {
 
 	// == fields ==
-	private Player owner;
-	private Map<Move, Cell> parts;
+	private Map<Vector, Cell> parts = new HashMap<>();
 	private boolean sunk;
+	private ShipTypes type;
 	
 	// == constructor ==
-	public Ship(ArrayList<Move> moves, Player player, GameBoard board) {
+	public Ship(ShipTypes type) {
+		this.type = type;
+	}
+	
+	public Ship(ArrayList<Vector> vectors, ShipTypes type ) {
 		
-		for (Move move : moves) {
+		for (Vector vector : vectors) {
 			Cell cell = new Cell(this);
-			parts.put(move, cell);
+			parts.put(vector, cell);
 		}
-		
+		this.setType(type);
 		this.sunk = false;
-		this.owner = player;
 	}
 	
 	// == public methods ==
 	public boolean isSunk() {
 		return this.sunk;
 	}
+	
 	public void hit() {
 		
-		for (Move move: parts.keySet()) {
-			if (parts.get(move).isMissed()) {
+		for (Vector vector : parts.keySet()) {
+			if (parts.get(vector).isNotHitted()) {
 				sunk = false;
 				break;
 			}
 		}
 		sunk = true;
+	}
+
+	public ShipTypes getType() {
+		return type;
+	}
+
+	public void setType(ShipTypes type) {
+		this.type = type;
+	}
+
+	public Map<Vector, Cell> getParts() {
+		return parts;
 	}
 }

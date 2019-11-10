@@ -3,7 +3,7 @@ package pl.jdomanski.bgames.player;
 import java.util.ArrayList;
 import java.util.Random;
 
-import pl.jdomanski.bgames.Move;
+import pl.jdomanski.bgames.Vector;
 import pl.jdomanski.bgames.board.GameBoard;
 import pl.jdomanski.bgames.board.TicTacToeBoard;
 
@@ -19,11 +19,11 @@ public class RandomComputerPlayer implements Player {
 	}
 
 	@Override
-	public Move doMove(GameBoard board) {
-		ArrayList<Move> moves = board.getAvailableMoves();
+	public Vector doMove(GameBoard board) {
+		ArrayList<Vector> vectors = board.getAvailableMoves();
 		Random random = new Random();
 				
-		return moves.get(random.nextInt(moves.size()));
+		return vectors.get(random.nextInt(vectors.size()));
 	}
 
 	public String getName() {

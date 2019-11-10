@@ -2,8 +2,7 @@ package pl.jdomanski.bgames.board;
 
 import java.util.ArrayList;
 
-import pl.jdomanski.bgames.Game;
-import pl.jdomanski.bgames.Move;
+import pl.jdomanski.bgames.Vector;
 
 public class Connect4Board extends GameBoard {
 
@@ -17,7 +16,7 @@ public class Connect4Board extends GameBoard {
 	
 	private String[] grid = new String[WIDTH * HEIGHT];
 	
-	private Move lastMove = null;
+	private Vector lastMove = null;
 	
 	// == constructor ==
 	
@@ -36,22 +35,22 @@ public class Connect4Board extends GameBoard {
 	}
 
 	@Override
-	public boolean isValidMove(Move move) {
-		return move.getX() >= 0 && 
-			   move.getX() < WIDTH && 
-			   columnNotFull( move.getX() ); 
+	public boolean isValidMove(Vector vector) {
+		return vector.getX() >= 0 &&
+			   vector.getX() < WIDTH &&
+			   columnNotFull( vector.getX() );
 				
 	}
 
 	@Override
-	public void submitMove(Move move, String mark) {
+	public void submitMove(Vector vector, String mark) {
 		for (int y = 0; y < HEIGHT; y++) {
 			
-			int x = move.getX();
+			int x = vector.getX();
 			
 			if (getCell(x, y).equals(EMPTY)) {
 				setCell(x, y, mark);
-				lastMove = new Move(x,y);
+				lastMove = new Vector(x,y);
 				break;
 			}
 		}
@@ -61,10 +60,10 @@ public class Connect4Board extends GameBoard {
 	
 
 	@Override
-	public void undo(Move move) {
+	public void undo(Vector vector) {
 		
 		for (int y = HEIGHT - 1; y >= 0; y--) {
-			int x = move.getX();
+			int x = vector.getX();
 			if ( !getCell(x,y).equals(EMPTY)) {
 				setCell(x,y, EMPTY);
 				gameWon = false;
@@ -76,16 +75,16 @@ public class Connect4Board extends GameBoard {
 	}
 
 	@Override
-	public ArrayList<Move> getAvailableMoves() {
+	public ArrayList<Vector> getAvailableMoves() {
 		
-		ArrayList<Move> list = new ArrayList<Move>();
+		ArrayList<Vector> list = new ArrayList<Vector>();
 		
 		for (int x = 0; x < WIDTH; x++ ) {
-			Move move = new Move(x);
-			if (isValidMove(move)) {
-				list.add(move);
+			Vector vector = new Vector(x);
+			if (isValidMove(vector)) {
+				list.add(vector);
 			}
-			//System.out.println("Possible: " + move);
+			//System.out.println("Possible: " + vector);
 		}
 		
 		return list;
@@ -220,7 +219,7 @@ public class Connect4Board extends GameBoard {
 	private void setCell(int x, int y, String mark) {
 		grid[x + y * WIDTH] = mark;
 	}	
-	private String getLastCell(Move move) {
+	private String getLastCell(Vector vector) {
 		
 		return null;
 	}
@@ -237,18 +236,18 @@ public class Connect4Board extends GameBoard {
 	public static void main(String[] args) {
 		GameBoard board = new Connect4Board();
 		
-		board.submitMove(new Move(2), "X");
-		board.submitMove(new Move(3), "X");
-		board.undo(new Move(3));
-		board.undo(new Move(2));
+		board.submitMove(new Vector(2), "X");
+		board.submitMove(new Vector(3), "X");
+		board.undo(new Vector(3));
+		board.undo(new Vector(2));
 		System.out.println(board);
 		System.out.println(board.isGameEnded());
 		
-		board.submitMove(new Move(2), "X");
-		board.submitMove(new Move(2), "X");
-		board.submitMove(new Move(2), "X");
-		board.submitMove(new Move(2), "X");
-		board.submitMove(new Move(2), "X");
+		board.submitMove(new Vector(2), "X");
+		board.submitMove(new Vector(2), "X");
+		board.submitMove(new Vector(2), "X");
+		board.submitMove(new Vector(2), "X");
+		board.submitMove(new Vector(2), "X");
 		System.out.println(board);
 		System.out.println(board.isGameEnded());
 
